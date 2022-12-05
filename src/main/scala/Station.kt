@@ -1,2 +1,1 @@
-class Station {
-}
+class Station(var id: String, var name: String, var lat: Float, var lng: Float) {}
