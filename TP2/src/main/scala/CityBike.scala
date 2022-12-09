@@ -90,19 +90,21 @@ object CityBike extends App {
   case class StationWithDistance(id: String, name: String, lat: Float, lgn: Float, distance: Double)
 
   val tripGraphWithDistance = Pregel(tripGraph.mapVertices((_, sd) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, 0)),
-    initialMsg = 0, maxIterations = 10,
+    initialMsg = 0, maxIterations = 2,
     activeDirection = EdgeDirection.Out)(
     (_: VertexId, sd: StationWithDistance, a: Int) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, math.max(a, sd.distance)),
     (et: EdgeTriplet[StationWithDistance, Trip]) => Iterator((et.dstId, (et.srcAttr.distance + helpFunctions.getDistKilometers(et.dstAttr.lgn, et.dstAttr.lat, et.srcAttr.lgn, et.srcAttr.lat)).toInt)),
     (a: Int, b: Int) => math.max(a, b))
   tripGraphWithDistance.vertices.sortBy(station => station._2.distance, ascending = false).foreach(station => println(station))
+  println("Station la plus proche de la station JC013 en distance : " + tripGraphWithDistance.vertices.sortBy(station => station._2.distance, ascending = true).first())
 
 
   val tripGraphWithDistanceBis = Pregel(tripGraph.mapVertices((_, sd) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, 0)),
-    initialMsg = 0, maxIterations = 10,
+    initialMsg = 0, maxIterations = 2,
     activeDirection = EdgeDirection.Out)(
     (_: VertexId, sd: StationWithDistance, a: Int) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, math.max(a, sd.distance)),
-    (et: EdgeTriplet[StationWithDistance, Trip]) => Iterator((et.dstId, (et.srcAttr.distance + et.attr.ended_at - et.attr.started_at))),
+    (et: EdgeTriplet[StationWithDistance, Trip]) => Iterator((et.dstId, ((et.srcAttr.distance + et.attr.ended_at - et.attr.started_at).toInt))),
     (a: Int, b: Int) => math.max(a, b))
   tripGraphWithDistanceBis.vertices.sortBy(station => station._2.distance, ascending = false).foreach(station => println(station))
+  println("Station la plus proche de la station JC013 en temps : " + tripGraphWithDistanceBis.vertices.sortBy(station => station._2.distance, ascending = true).first())
 }
