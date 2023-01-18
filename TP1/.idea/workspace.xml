@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b72bf2d1-81f0-4ce7-966b-21f0fe40d516" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/tp-spark-graphx-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/tp-spark-graphx-build.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/tp-spark-graphx.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/tp-spark-graphx.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Station.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Station.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Trip.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Trip.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/template_graphX.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/template_graphX.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TP2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TP2/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +28,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -53,7 +46,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "D:/ESIR3/IdeaProjects/tp-spark-graphx-MOLL-LEMAITRE/TP2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -99,17 +95,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/template_graphX.scala</url>
-          <line>37</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/tp_spark_graphx$template.ic" NAME="template Coverage Results" MODIFIED="1670259151650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
