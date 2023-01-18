@@ -7,6 +7,8 @@ object CityBike extends App {
   val sc = new SparkContext(sparkConf)
   val helpFunctions = new HelpfulFunctions();
 
+  /* Préparation des données */
+
   val DATA_PATH = "JC-202112-citibike-tripdata.csv"
 
   val caract_rdd = sc.textFile(DATA_PATH).map(row => row.split(','))
@@ -80,12 +82,16 @@ object CityBike extends App {
   val outDegreeVertexRDD = tripGraph.aggregateMessages[Int](_.sendToSrc(1), _+_)
   val inDegreeVertexRDD = tripGraph.aggregateMessages[Int](_.sendToDst(1), _+_)
 
-  println("Station ayant le plus de trajets sortants : ")
-  outDegreeVertexRDD.sortBy(station => station._2, ascending = false).take(10).foreach(station => println(rdd_stations.filter(f => f._1 == station._1).first()._2.name + " : " + station._2))
+  /*  2 Calcul de degré  */
 
-  println("Station ayant le plus de trajets entrants : ")
-  inDegreeVertexRDD.sortBy(station => station._2, ascending = false).take(10).foreach(station => println(rdd_stations.filter(f => f._1 == station._1).first()._2.name + " : " + station._2))
+  var res: String = "";
+  outDegreeVertexRDD.sortBy(station => station._2, ascending = false).take(10).foreach(station => res = (rdd_stations.filter(f => f._1 == station._1).first()._2.name + " : " + station._2))
+  println("Station ayant le plus de trajets sortants : " + res)
 
+  inDegreeVertexRDD.sortBy(station => station._2, ascending = false).take(10).foreach(station => res = (rdd_stations.filter(f => f._1 == station._1).first()._2.name + " : " + station._2))
+  println("Station ayant le plus de trajets entrants : " + res)
+
+  /*  3 Proximité entre les stations  */
 
   case class StationWithDistance(id: String, name: String, lat: Float, lgn: Float, distance: Double)
 
@@ -95,7 +101,7 @@ object CityBike extends App {
     (_: VertexId, sd: StationWithDistance, a: Int) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, math.max(a, sd.distance)),
     (et: EdgeTriplet[StationWithDistance, Trip]) => Iterator((et.dstId, (et.srcAttr.distance + helpFunctions.getDistKilometers(et.dstAttr.lgn, et.dstAttr.lat, et.srcAttr.lgn, et.srcAttr.lat)).toInt)),
     (a: Int, b: Int) => math.max(a, b))
-  tripGraphWithDistance.vertices.sortBy(station => station._2.distance, ascending = false).foreach(station => println(station))
+  tripGraphWithDistance.vertices.sortBy(station => station._2.distance, ascending = false)
   println("Station la plus proche de la station JC013 en distance : " + tripGraphWithDistance.vertices.sortBy(station => station._2.distance, ascending = true).first())
 
 
@@ -105,6 +111,6 @@ object CityBike extends App {
     (_: VertexId, sd: StationWithDistance, a: Int) => StationWithDistance(sd.id, sd.name, sd.lat, sd.lgn, math.max(a, sd.distance)),
     (et: EdgeTriplet[StationWithDistance, Trip]) => Iterator((et.dstId, ((et.srcAttr.distance + et.attr.ended_at - et.attr.started_at).toInt))),
     (a: Int, b: Int) => math.max(a, b))
-  tripGraphWithDistanceBis.vertices.sortBy(station => station._2.distance, ascending = false).foreach(station => println(station))
+  tripGraphWithDistanceBis.vertices.sortBy(station => station._2.distance, ascending = false)
   println("Station la plus proche de la station JC013 en temps : " + tripGraphWithDistanceBis.vertices.sortBy(station => station._2.distance, ascending = true).first())
 }
